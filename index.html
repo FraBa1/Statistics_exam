@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Statistics Blog — Blog about statistics homeworks</title>
+  <meta name="description" content="Blog about statistics homeworks.">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <header>
+    <h1>Statistics Blog - Baldassarre</h1>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <div class="controls">
+      <select id="sort" aria-label="Sort homeworks">
+        <option value="num-asc">Sort: HMWK n° ascending</option>
+        <option value="num-desc">Sort: HMWK n° descending</option>
+      </select>
+    </div>
+
+    <ol id="hw-list" class="list">
+      <a href="static/hmwk-1.html" class="card" data-num="1">
+        <div class="hmwk-num">HMWK n° 1</div>
+        <div class="title">What is Statistics, and Why Can It Be Useful for Cybersecurity?</div>
+        <div class="meta">???</div>
+      </a>
+
+      <a href="static/hmwk-2.html" class="card" data-num="2">
+        <div class="hmwk-num">HMWK n° 2</div>
+        <div class="title">???</div>
+        <div class="meta">???</div>
+      </a>
+
+      <a href="static/hmwk-3.html" class="card" data-num="3">
+        <div class="hmwk-num">HMWK n° 3</div>
+        <div class="title">???</div>
+        <div class="meta">???</div>
+      </a>
+
+      <a href="static/hmwk-4.html" class="card" data-num="4">
+        <div class="hmwk-num">HMWK n° 4</div>
+        <div class="title">???</div>
+        <div class="meta">???</div>
+      </a>
+
+      <a href="static/hmwk-5.html" class="card" data-num="5">
+        <div class="hmwk-num">HMWK n° 5</div>
+        <div class="title">???</div>
+        <div class="meta">???</div>
+      </a>
+
+      <a href="static/hmwk-6.html" class="card" data-num="6">
+        <div class="hmwk-num">HMWK n° 6</div>
+        <div class="title">???</div>
+        <div class="meta">???</div>
+      </a>
+    </ol>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const list = document.getElementById('hw-list');
+      const items = Array.from(list.children);
+      const sort = document.getElementById('sort');
+
+      function render(sorted){
+        list.innerHTML = '';
+        sorted.forEach(i => list.appendChild(i));
+      }
+
+      function doSort(){
+        const mode = sort.value;
+        const sorted = items.slice().sort((a,b) => {
+          const numA = Number(a.dataset.num);
+          const numB = Number(b.dataset.num);
+          return mode === 'num-asc' ? numA - numB : numB - numA;
+        });
+        render(sorted);
+      }
+
+      sort.addEventListener('change', doSort);
+      doSort();
+    })();
+  </script>
+</body>
+</html>
