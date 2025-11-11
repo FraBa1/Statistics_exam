@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 3 — RSA ecncode/decode using distributions</title>
+  <meta name="description" content="Homework 3: RSA ecncode/decode using distributions.">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/hmwk-3.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 3</div>
+      <div class="hw-title">RSA ecncode/decode using distributions</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>Goal of this page</h2>
+        <ul>
+            <li>Understand how RSA works;</li>
+            <li>Encrypt and decrypt letters using small and manageable prime numbers p and q;</li>
+            <li>Analyze the letter frequency distribution of the encrypted text;</li>
+            <li>Try to decode it by comparing the encrypted text’s distribution to the language’s natural distribution.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>How RSA works</h2>
+        <p>
+          RSA is an asymmetric cryptographic algorithm that relies on the mathematical properties of prime numbers. 
+          The key steps involved in RSA encryption and decryption are as follows:
+        </p>
+        <ol>
+            <li><strong>Key Generation:</strong>
+                <ul>
+                    <li>Select two distinct prime numbers, p and q.</li>
+                    <li>Compute n = p * q. The value n is used as the modulus for both the public and private keys.</li>
+                    <li>Calculate the totient φ(n   ) = (p - 1)(q - 1).</li>
+                    <li>Choose an integer e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1. The value e is the public exponent.</li>
+                    <li>Determine d as the modular multiplicative inverse of e modulo φ(n). The value d is the private exponent.</li>
+                    <li>The public key is (e, n) and the private key is (d, n).</li>
+                </ul>
+            </li>
+            <li><strong>Encryption:</strong>
+                <ul>
+                    <li>Convert the plaintext message into numerical form (e.g., using ASCII values).</li>
+                    <li>For each numerical value m in the plaintext, compute the ciphertext c using the formula: c = m^e mod n.</li>
+                </ul>
+            </li>
+            <li><strong>Decryption:</strong>
+                <ul>
+                    <li>For each ciphertext value c, compute the original numerical value m using the formula: m = c^d mod n.</li>
+                    <li>Convert the numerical values back to characters to obtain the decrypted plaintext message.</li>
+                </ul>
+            </li>
+        </ol>
+      </section>
+
+      <section class="rsa-section">
+        <h2>RSA message encryption/decryption</h2> 
+        <p>
+          This website will implement a simplified version of the RSA algorithm that encrypts text character by character. 
+          Each character is converted into its corresponding ASCII numeric value and then encrypted using RSA.
+        </p>
+
+        <p>Enter a message and RSA parameters to encrypt/decrypt each character individually.</p>
+
+        <textarea id="message" placeholder="Type your message here..." rows="5"></textarea>
+
+        <div class="rsa-params controls">
+            <div class="param">
+            <label for="p">Prime p:</label>
+            <input type="text" id="p" placeholder="17">
+            </div>
+            <div class="param">
+            <label for="q">Prime q:</label>
+            <input type="text" id="q" placeholder="23">
+            </div>
+            <div class="param">
+            <label for="e">Public exponent e:</label>
+            <input type="text" id="e" placeholder="3">
+            </div>
+        </div>
+
+        <div class="rsa-buttons controls">
+            <button onclick="generateKeysAndEncrypt()">Encrypt</button>
+            <button onclick="decryptMessage()">Decrypt</button>
+        </div>
+
+        <div class="rsa-results">
+            <label>Encrypted:</label>
+            <textarea id="encrypted" readonly rows="3"></textarea>
+
+            <label>Decrypted:</label>
+            <textarea id="decrypted" readonly rows="3"></textarea>
+
+            <label>Private key d:</label>
+            <textarea id="privateKey" readonly rows="1"></textarea>
+        </div>
+      </section>
+
+      <section>
+        <h2>Limitations of this RSA implementation</h2>
+        <p>
+            Using small prime numbers for <em>p</em> and <em>q</em> makes it easy to factor the modulus <em>n</em> and compute the private key <em>d</em>.
+        </p>
+        <p>
+            Encrypting text character by character exposes the ciphertext to frequency analysis, allowing patterns from the original message to be inferred. 
+            In English, for example, the letter "e" is very common. When each character is encrypted individually, the ciphertext value corresponding to "e" will appear more frequently than others.
+        </p>
+        <p>
+            This means an attacker can analyze the frequency of ciphertext values and guess that the most common value represents "e", the second most common represents "t", and so on, gradually revealing the message. 
+            For instance, if the plaintext message is "meet me", the ASCII values are [109, 101, 101, 116, 32, 109, 101]. 
+            After encryption with a small RSA setup, suppose the ciphertext is [23, 17, 17, 29, 12, 23, 17]; by observing that 17 appears most often, an attacker might correctly deduce that 17 corresponds to "e".
+        </p>
+        <p>
+            Additionally, the absence of padding schemes leaves the encryption vulnerable to various attacks, such as chosen-plaintext attacks. 
+            Real RSA implementations avoid these weaknesses by using large primes, proper padding, and block-based encryption techniques to ensure strong security.
+        </p>
+      </section>
+      
+      <section>
+        <h2>Letter frequency distribution of the encrypted text and plaintext</h2>
+        <div class="rsa-histograms">
+          <div class="charts-row">
+            <div class="chart-box">
+              <h3>Plaintext Character Distribution</h3>
+              <canvas id="plaintextChart"></canvas>
+            </div>
+
+            <div class="chart-box">
+              <h3>Ciphertext Number Distribution</h3>
+              <canvas id="ciphertextChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <p>With this implementation, the frequency of each letter is preserved. By comparing the distribution of letters in the original message with the corresponding distribution in the ciphertext, we can attempt to decrypt it by matching the most frequent numbers to their likely letters. For example, if the letter 'e' appears 152 times in the plaintext, the number that appears 152 times in the ciphertext is probably 'e'.</p>
+      </section>
+
+      <section class="rsa-stat-attack">
+        <h2>Statistical Decryption Attack</h2>
+        <p>
+          By studying the frequency distribution of the ciphertext, we can make an attempt at decrypting it by mapping the most 
+          frequent ciphertext values to the most common letters in English. By replacing each ciphertext value with its mapped 
+          letter, we get a first-pass plaintext guess; analysing this guess (and refining mappings using common digrams/trigrams 
+          or testing alternative alignments for the top ranks) often improves accuracy. This type of statistical attack works best 
+          on long texts where natural frequencies emerge, but it fails or produces many errors for short messages or non-alphabetic content.
+        </p>
+
+        <div class="rsa-buttons controls">
+            <button id="statAttackBtn" type="button" onclick="statisticalDecrypt()">Statistical attack</button>
+        </div>
+
+        <div class="rsa-results">
+            <label for="statAttackArea">Statistical Decryption Attempt:</label>
+            <textarea id="statAttackArea" readonly rows="3"></textarea>
+
+            <label for="statMapping">Mapping (cipher → guessed plaintext):</label>
+            <textarea id="statMapping" readonly rows="6"></textarea>
+
+            <label for="statScore">Match score (vs original message, for demo):</label>
+            <textarea id="statScore" readonly rows="1"></textarea>
+        </div>
+      </section>
+
+      <section class="sources">
+        <h3>Sources</h3>
+        <p>For more information, see:
+          <a href="https://www.geeksforgeeks.org/computer-networks/rsa-algorithm-cryptography/" target="_blank">RSA Algorithm in Cryptography</a>,
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+  <script src="../JS/hmwk-3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
