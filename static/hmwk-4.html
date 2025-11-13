@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 4 — Law of large numbers simulation of relative frequency trajectories</title>
+  <meta name="description" content="Homework 4: Law of large numbers simulation of relative frequency trajectories.">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/hmwk-4.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 4</div>
+      <div class="hw-title">Law of large numbers simulation of relative frequency trajectories</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>What is the Law of Large Numbers?</h2>
+        <p>
+            The <strong>Law of Large Numbers (LLN)</strong> is one of the main principles in probability theory. 
+            It highlights two key insights:
+        </p>
+        <ul>
+            <li>The mean of a large number of independent observations tends to be close (with high probability) to the true mean of the distribution.</li>
+            <li>The histogram of many independent observations tends to approximate (with high probability) the shape of the distribution’s density function.</li>
+        </ul>
+        <p>
+            The mathematics of the <strong>Law of Large Numbers (LLN)</strong> states that the average of many independent samples from a random variable will almost certainly converge to the variable’s true mean. 
+            However, the mathematics cannot guarantee that the measurement process or experiment is producing reliable data worth averaging.
+        </p>
+        <blockquote class="lln-quote">
+          Suppose \(X_1, X_2, \dots, X_n\) are independent random variables with the same underlying distribution. 
+          In this case, we say that the \(X_i\) are independent and identically-distributed, or i.i.d. 
+          In particular, the \(X_i\) all have the same mean \(\mu\) and standard deviation \(\sigma\).<br><br>
+
+         Let \(\overline{X}_n\) be the average of \(X_1, \dots, X_n\):<br>
+          \[
+          \overline{X}_n = \frac{X_1 + X_2 + \dots + X_n}{n} = \frac{1}{n} \sum_{i=1}^{n} X_i
+          \]
+          <br><br>
+
+          Note that \(\overline{X}_n\) is itself a random variable. The law of large numbers and central limit theorem tell us about the value and distribution of \(\overline{X}_n\), respectively.<br><br>
+
+          <strong>LoLN:</strong> As \(n\) grows, the probability that \(\overline{X}_n\) is close to \(\mu\) goes to 1.<br>
+          <strong>CLT:</strong> As \(n\) grows, the distribution of \(\overline{X}_n\) converges to the normal distribution \(N\!\left(\mu, \frac{\sigma^2}{n}\right)\).
+          <span class="quote-source">Source: <a href="https://openlearninglibrary.mit.edu/asset-v1:MITx+18.05r_10+2022_Summer+type@asset+block/pdf_mit18_05_s22_1805-probability.pdf" target="_blank">pdf_mit18_05_s22_1805-probability.pdf</a>, page 78</span>
+        </blockquote>
+      </section>
+
+      <section class="lln-section">
+        <h2>Law of Large Numbers Simulation</h2>
+        <p>
+          In this simulation, it's possible to see that the relative frequency of success of getting heads flipping a coin
+          \[
+          f(n) = \frac{\text{# successes}}{n}
+          \] 
+          will get progressively closer to the true probability of success \(p\) as the number of trials \(n\) increases.
+        </p>
+
+        <p>
+          The first graph shows multiple trajectories of \(f(n)\) for different simulations (in different colors), while the second graph shows the histogram of the final values of \(f(n)\) at the maximum number of trials.
+        </p>
+
+        <div class="lln-controls controls">
+          <div class="param">
+            <label for="p">Probability of Heads (p):</label>
+            <input type="text" id="p" min="0" max="1" value="0.5">
+          </div>
+          <div class="param">
+            <label for="m">Number of trajectories:</label>
+            <input type="text" id="m" min="10" max="500" value="200">
+          </div>
+          <div class="param">
+            <label for="nmax">Number of trials (n):</label>
+            <input type="text" id="nmax" min="100" max="5000" value="1000">
+          </div>
+          <button type="button" onclick="runLLNSimulation()">Run Simulation</button>
+        </div>
+
+        <div class="lln-results">
+          <canvas id="mainChart" width="900" height="400"></canvas>
+          <canvas id="histChart" width="900" height="200"></canvas>
+          <div class="note">Each colored line is a trajectory of f(n). The histogram shows f(n) at the last trial count.</div>
+        </div>
+
+        <p>
+          As we can see, the higher the number of trials \(n\) and trajectories, the closer the histogram 
+          approximates the graph of the standard normal distribution.
+        </p>
+      </section>
+
+      <section class="sources">
+        <h3>Sources</h3>
+        <p>For more information, see:
+          <a href="https://openlearninglibrary.mit.edu/asset-v1:MITx+18.05r_10+2022_Summer+type@asset+block/pdf_mit18_05_s22_1805-statistics.pdf" target="_blank">(FILE) pdf_mit18_05_s22_1805-statistics.pdf</a>,
+          <a href="https://openlearninglibrary.mit.edu/asset-v1:MITx+18.05r_10+2022_Summer+type@asset+block/pdf_mit18_05_s22_1805-probability.pdf" target="_blank">(FILE) pdf_mit18_05_s22_1805-probability.pdf</a>
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+  <script src="../JS/hmwk-4.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</body>
+</html>
