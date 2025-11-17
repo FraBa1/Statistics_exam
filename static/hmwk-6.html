@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 6 — Online Algorithms for Computing Mean and Variance: proof and application: proof and application</title>
+  <meta name="description" content="Homework 6: Online Algorithms for Computing Mean and Variance: proof and application.">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/hmwk-6.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 6</div>
+      <div class="hw-title">Online Algorithms for Computing Mean and Variance: proof and application</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>Online and Offline Algorithms</h2>
+        <p>
+            In computing, algorithms can be classified based on how they receive their input. 
+            We can define some algorithms as offline if they have access to the entire input from the start. 
+            We can define some algorithms as online, instead, if they receive the input gradually, piece by piece, and must make decisions as they go.
+        </p>
+        <p>
+            The main challenge for online algorithms is making decisions with only partial information, 
+            aiming to achieve results as close as possible to what an offline algorithm could achieve 
+            with full knowledge of the input. This concept is crucial in many real-world applications, 
+            from network routing to real-time data processing.
+        </p>
+
+        <blockquote class="online-citation">
+            <strong>Definition 1:</strong> We say that an online algorithm <strong>A</strong> has competitive ratio <strong>α</strong> (or A is α-competitive)
+            if, for every input sequence <strong>σ</strong>, C<sub>A</sub>(σ) ≤ α C<sub>OPT</sub>(σ), the cost of the solution produced by A 
+            is less than α times the cost of the solution produced by the optimal offline algorithm (OPT).
+            <section class="sources">
+              Source: <a href="https://ocw.mit.edu/courses/6-854j-advanced-algorithms-fall-2005/24f1412a111e1099e9f40e93b833e9b3_lec19_2003.pdf" target="_blank">(FILE)Online Algorithms 19.1 Introduction</a>, page 1.
+            </section>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Online Mean</h2>
+        <h3>Proof for recursive formula</h3>
+        <p>
+          Knowing the formula for the mean of \(n\) elements:
+            \[ \mu_n = \frac{1}{n} \sum_{i=1}^{n} x_i \]
+
+          By the linearity of the summation, we can rewrite the formula as:
+            \[ \mu_n = \frac{1}{n} \left( \sum_{i=1}^{n-1} x_i + x_n \right) \]
+
+          We can write the mean of the first \(n-1\) elements as:
+          \[ \mu_{n-1} = \frac{1}{n-1} \sum_{i=1}^{n-1} x_i \]
+
+          So, we can express the summation of the first (\(n-1\)) elements as:
+          \[ \sum_{i=1}^{n-1} x_i = \mu_{n-1}(n-1) \]
+
+          By substituting this expression into the previous formula for \(\mu_n\), we get:
+          \[ \mu_n = \frac{1}{n} \left(\mu_{n-1}(n-1) + x_n \right) \]
+
+          \[ \mu_n = \frac{(n-1)\mu_{n-1} + x_n}{n} \]
+
+          \[ \mu_n = \mu_{n-1} - \frac{\mu_{n-1}}{n} + \frac{x_n}{n} \]
+
+          Obteining the final formula:
+          \[ \mu_n = \mu_{n-1} + \frac{x_n - \mu_{n-1}}{n} \]
+        </p>
+      </section>
+
+      <section>
+        <h3>Interactive Demo</h2>
+        <p>Compute the online mean incrementally. Enter a new value and click "Add" to update the mean.</p>
+
+        <div class="online-mean-container">
+          <div class="online-mean-left">
+            <p>Current mean: <span id="currentMean">0</span></p>
+            <p>Number of values entered: <span id="currentCount">0</span></p>
+          </div>
+          <div class="online-mean-right">
+            <input type="text" id="newValue" placeholder="Enter a number" pattern="[0-9.-]*">
+            <button onclick="addValueMean()">Add</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3>JavaScript Used for Online Mean Calculation</h3>
+        <pre><code>
+          let mean = 0;
+          let count = 0;
+
+          function addValue() {
+            const input = document.getElementById("newValue");
+            const val = parseFloat(input.value);
+
+            if (isNaN(val)) {
+              alert("Please enter a valid number.");
+              return;
+            }
+
+            count++;
+            mean += (val - mean) / count;
+
+            document.getElementById("currentMean").textContent = mean.toFixed(4);
+            document.getElementById("currentCount").textContent = count;
+            input.value = '';
+            input.focus();
+          }
+        </code></pre>
+        <p>
+          As we can see, the time and space complexity of this algorithm is O(1). 
+          On an array of length <em>n</em>, we apply this algorithm <em>n</em> times, resulting in an overall time complexity of O(n). 
+          Since the cost of the solution produced by this online algorithm is always equal to the cost of the optimal offline solution, 
+          we can say that it is <strong>1-competitive</strong> with respect to the offline algorithm.
+        </p>
+      </section>
+
+      <section>
+        <h2>Online Variance (Welford’s Algorithm)</h2>
+        <h3>Proof</h3>
+        <p>
+          Define \(\delta \) as:
+            \[\delta = X_n - \mu_{n-1}\]
+          We know that:
+            \[\mu_n = \mu_{n-1} + \frac{\delta}{n}\]
+            \[\mu_n - \mu_{n-1} = \frac{\delta}{n}\]
+          By definition, the sum of squared deviations for \(n\) elements is:
+            \[S_n = \sum_{i=1}^{n}(x_i - \mu_n)^2 \]
+          For the linearity of the summation, we can rewrite it as:
+            \[1) \qquad S_n = \sum_{i=1}^{n-1}(x_i - \mu_n)^2 + (x_n - \mu_n)^2 \]
+          We can rewrite the argument of the summation adding and subrctracting \(\mu_{n-1}\):
+            \[x_i - \mu_n = (x_i - \mu_{n-1}) + (\mu_{n-1} - \mu_n) = (x_i - \mu_{n-1}) - \frac{\delta}{n} \]
+          By substituting this expression into the summation, we obtein (ignoring for now the last term):
+            \[S_n = \sum_{i=1}^{n-1} [(x_i - \mu_{n-1}) - \frac{\delta}{n}]^2 \]
+          Expanding the square, we have:
+            \[[(x_i - \mu_{n-1}) - \frac{\delta}{n}]^2 = (x_i - \mu_{n-1})^2 -2\frac{\delta}{n}(x_i - \mu_{n-1}) + (\frac{\delta}{n})^2 \]
+          So we can rewrite the summation as:
+            \[S_n = \sum_{i=1}^{n-1}(x_i - \mu_{n-1})^2 - 2\frac{\delta}{n}\sum_{i=1}^{n-1}(x_i - \mu_{n-1}) + (n-1)(\frac{\delta}{n})^2 \]
+          We know that:
+            \[\sum_{i=1}^{n-1}(x_i - \mu_{n-1}) = 0 \]
+            \[\sum_{i=1}^{n-1}(x_i - \mu_{n-1})^2 = S_{n-1} \]
+          So the second term of the summation is zero and we can rewrite \(S_n\) as:
+            \[S_n = S_{n-1} + \frac{(n-1)}{n^2}\delta^2 \]
+          Now we can rewrite the second term of equation 1) using the mean expression:
+            \[(x_n - \mu_n)^2 = (X_n - \mu_{n-1} - \frac{\delta}{n})^2 = (\delta - \frac{\delta}{n})^2 = \frac{(n-1)^2}{n^2}\delta^2 \]
+          So we can finally rewrite the 1) equation as:
+            \[S_n = S_{n-1} + \frac{(n-1)}{n^2}\delta^2 + \frac{(n-1)^2}{n^2}\delta^2\]
+            \[S_n = S_{n-1} + \frac{\delta^2}{n^2}[(n-1) + (n-1)^2] \]
+            \[S_n = S_{n-1} + \frac{\delta^2}{n^2}(n-1)(n) = S_{n-1} + \frac{(n-1)}{n}\delta^2\]
+          Noting that:
+            \[x_n - \mu_n = x_n - \mu_{n-1} - \frac{\delta}{n} = \delta - \frac{\delta}{n} = \frac{n-1}{n}\delta \]
+          And multiplying both sides by \(\delta\), we have:
+            \[\delta(x_n - \mu_n) = \delta \frac{n-1}{n}\delta = \frac{n-1}{n}\delta^2 \]
+          We can finally express the recursive formula for the sum of squared deviations as:
+            \[S_n = S_{n-1} + \delta(x_n - \mu_n) \]
+          Remembering that:
+            \[\delta = x_n - \mu_{n-1}\]
+            \[\mu_n = \mu_{n-1} + \frac{\delta}{n} \]
+        </p>
+      </section>
+
+      <section>
+        <h3>Interactive Demo</h2>
+        <p>Compute the online variance incrementally. Enter a new value and click "Add" to update the variance.</p>
+
+        <div class="online-mean-container">
+          <div class="online-mean-left">
+            <p>Current variance population: <span id="currentVariancePopulation">0</span></p>
+            <p>Current variance sample: <span id="currentVarianceSample">0</span></p>
+            <p>Number of values entered: <span id="currentCountVar">0</span></p>
+          </div>
+          <div class="online-mean-right">
+            <input type="text" id="newValueVar" placeholder="Enter a number" pattern="[0-9.-]*">
+            <button onclick="addValueVariance()">Add</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3>JavaScript Used for Online Variance Calculation</h3>
+        <pre><code>
+          let S = 0;
+          let countVar = 0;
+          let meanVar = 0;
+
+          function addValueVariance() {
+            const input = document.getElementById("newValueVar");
+            const val = parseFloat(input.value);
+
+            if (isNaN(val)) {
+              alert("Please enter a valid number.");
+              return;
+            }
+
+            countVar++;
+            let delta = val - meanVar;
+            meanVar += delta / countVar;
+            S += delta * (val - meanVar);
+
+            let currentVariancePopulation = countVar > 0 ? S / countVar : 0;
+            let currentVarianceSample = countVar > 1 ? S / (countVar -1) : 0;
+
+            document.getElementById("currentVariancePopulation").textContent = currentVariancePopulation.toFixed(4);
+            document.getElementById("currentVarianceSample").textContent = currentVarianceSample.toFixed(4);
+            document.getElementById("currentCountVar").textContent = countVar;
+            input.value = '';
+            input.focus();
+          }
+        </code></pre>
+        <p>
+          As we can see, the time and space complexity of this algorithm is O(1). 
+          On an array of length <em>n</em>, we apply this algorithm <em>n</em> times, resulting in an overall time complexity of O(n). 
+          Since the cost of the solution produced by this online algorithm is always equal to the cost of the optimal offline solution, 
+          we can say that it is <strong>1-competitive</strong> with respect to the offline algorithm.
+        </p>
+      </section>
+
+      <section class="sources">
+        <h3>Sources</h3>
+        <p>For more information, see:
+          <a href="https://ocw.mit.edu/courses/6-854j-advanced-algorithms-fall-2005/24f1412a111e1099e9f40e93b833e9b3_lec19_2003.pdf" target="_blank">(FILE)Online Algorithms 19.1 Introduction</a>,
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../JS/hmwk-6.js" async></script>
+</body>
+</html>
