@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 5 — Measures of Location and Dispersion</title>
+  <meta name="description" content="Homework 5: Measures of Location and Dispersion.">
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 5</div>
+      <div class="hw-title">Measures of Location and Dispersion</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>Measures of Location</h2>
+        <p>Measures of location are statistical metrics that describe the central tendency or typical value of a dataset.</p>
+      </section>
+
+      <section>
+        <h3>Arithmetic Mean</h3>
+        <p>
+          The arithmetic mean (or average) of a dataset is the sum of all values divided by the number \(n\) of data points.<br>
+          It is defined mathematically as:
+        </p>
+        <p>
+          \[
+          \bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+          \]
+        </p>
+        <p>
+          where \(X_1, X_2, \dots, X_n\) are the values in the dataset, and \(n\) is the total number of values.
+        </p>
+
+        <p>
+          It finds its applications in various fields such as data analysis, statistics, machine learning, and scientific research and its used for example to sumarize data.
+        </p>
+      </section>
+
+      <section>
+        <h3>Geometric Mean</h3>
+        <p>
+          The geometric mean represents the central tendency of a set of numbers by using their product rather than their sum.<br>
+          It is computed as the nth root of the product of all n values:
+        </p>
+        <p>
+          \[
+          \text{GM} = \sqrt[n]{\prod_{i=1}^{n} X_i}
+          \]
+        </p>
+        <p>
+          This measure is particularly useful for example for analysts, investors, and portfolio managers to assess the overall performance of an investment portfolio.
+        </p>
+        <p>
+          By incorporating the effects of compounding, the geometric mean often gives a more realistic estimate of average returns than the arithmetic mean.
+        </p>
+      </section>
+
+      <section>
+      <h3>Weighted Average</h3>
+      <p>
+          A weighted average is an average where different values in a dataset are given different levels of importance, or weights.<br>
+          It is calculated as:
+      </p>
+      <p>
+          \[
+          \bar{X}_w = \frac{\sum_{i=1}^{n} w_i X_i}{\sum_{i=1}^{n} w_i}
+          \]
+      </p>
+      <p>
+          where \(X_1, X_2, \dots, X_n\) are the values in the dataset, \(w_1, w_2, \dots, w_n\) are the corresponding weights, and \(n\) is the total number of values.
+      </p>
+      <p>
+          The weighted average accounts for the relative importance or frequency of values. It is widely used in finance, statistics, and surveys to give a more accurate representation of the dataset than a simple arithmetic mean.
+      </p>
+      </section>
+
+      <section>
+      <h3>Harmonic Mean</h3>
+      <p>
+          The harmonic mean is an average appropriate for rates, ratios, or multiples, such as the price-to-earnings ratio in finance.<br>
+          It is calculated as:
+      </p>
+      <p>
+          \[
+          \text{HM} = \frac{n}{\sum_{i=1}^{n} \frac{1}{X_i}}
+          \]
+      </p>
+      <p>
+          where \(X_1, X_2, \dots, X_n\) are the values in the dataset, and \(n\) is the total number of values.
+      </p>
+      <p>
+          The harmonic mean gives each value equal weight and is often used in finance and technical analysis to summarize ratios and multiples.
+      </p>
+      </section>
+
+      <section>
+        <h3>Median</h3>
+        <p>
+            The median is the middle point of an ordered dataset. To calculate it, first arrange the data in increasing order.
+        </p>
+        <p>
+            If the number of observations \(n\) is odd, the median is the \(\left[\frac{n+1}{2}\right]\)th observation.  
+            If \(n\) is even, the median is the arithmetic mean of the \(\frac{n}{2}\)th and \(\left(\frac{n}{2}+1\right)\)th observations.
+        </p>
+        <p>
+            The median provides a measure of central tendency that is less sensitive to extreme values than the arithmetic mean, making it especially useful for skewed distributions.
+        </p>
+      </section>
+
+      <section>
+        <h3>Mode</h3>
+        <p>
+            The mode is the value that occurs most frequently in a dataset.  
+            For grouped data, it is the class or group with the highest frequency.
+            It is useful for categorical data to describe the most frequent category.
+        </p>
+        <p>
+            A distribution with two modes is called <em>bimodal</em>. This can occur when populations are mixed.  
+            For example, height may appear bimodal in a dataset containing both men and women. Similarly, a biochemical measure may show a bimodal distribution in a population containing both healthy and ill individuals.
+        </p>
+        <p>
+            Some conditions are defined by the measured variable (e.g., obesity or high blood pressure), in which case the distributions are typically unimodal.
+        </p>
+      </section>
+
+      <section>
+        <h2>Measures of Dispersion</h2>
+        <p>Measures of dispersion quantify the spread or variability of a dataset.</p>
+      </section>
+
+      <section>
+        <h3>Range</h3>
+        <p>
+            The range indicates how far apart the smallest and largest values of a dataset are.  
+            It provides a quick sense of the overall spread of the data.
+        </p>
+        <p>
+            Mathematically, the range is defined as:
+        </p>
+        <p>
+            \[
+            \text{Range} = \text{Maximum value} - \text{Minimum value}
+            \]
+        </p>
+        <p>
+            Although easy to compute, the range depends solely on the extreme observations and does not reflect how the other data points are distributed.
+        </p>
+      </section>
+
+      <section>
+        <h3>Mean Deviation</h3>
+        <p>
+            The mean deviation measures how far the observations of a dataset differ from the mean.  
+            Since deviations can be both positive and negative, their direct sum would cancel out and fail to represent the true dispersion.
+        </p>
+        <p>
+            To avoid this issue, the absolute deviations from the mean are used.  
+            The mean deviation is defined as:
+        </p>
+        <p>
+            \[
+            \text{MD} = \frac{1}{n} \sum_{i=1}^{n} \left| X_i - \mu \right|
+            \]
+        </p>
+        <p>
+            This measure provides a simple way to quantify how spread out the data are around their average value.
+        </p>
+      </section>
+
+      <section>
+        <h3>Standard Deviation</h3>
+        <p>
+          The standard deviation measures how much the values in a dataset differ from the mean. 
+          It reflects the overall dispersion, with a small standard deviation indicating that the data are tightly 
+          clustered around the average and a large one revealing greater variability.
+        </p>
+        <p>
+            Mathematically, the standard deviation is defined as the square root of the variance,  
+            where the variance represents the average of the squared deviations from the mean.
+        </p>
+        <p>
+            For a sample of size \(n\), the standard deviation is computed as:
+        </p>
+        <p>
+            \[
+            s = \sqrt{ \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2 }
+            \]
+        </p>
+        <p>
+            The denominator \(n - 1\) is known as Bessel's correction,  
+            and it provides an unbiased estimate of the population variability when working with sample data.
+        </p>
+      </section>
+
+      <section>
+        <h3>Variance</h3>
+        <p>
+          Variance is a statistical measure that describes how far the values in a dataset deviate from their mean. It is computed as the average of the squared differences from the mean and quantifies how spread out the data points are.
+        </p>
+        <p>
+          A small variance indicates that the values are close to the average, while a large variance means the data points are more widely dispersed.
+        </p>
+        <p>
+          Mathematically, the variance of a population is defined as:
+        </p>
+        <p>
+          \[
+          \sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2
+          \]
+        </p>
+        <p>
+          where \(x_1, x_2, \dots, x_N\) are the data values, \(\mu\) is the population mean, and \(N\) is the total number of observations.
+        </p>
+      </section>
+
+      <section>
+        <h3>Quartile Deviation</h3>
+        <p>
+          The Quartile Deviation is defined as half the difference between the upper quartile (\(Q_3\)) and the lower quartile (\(Q_1\)).  
+          In other words, it represents half of the interquartile range and provides a measure of dispersion based on the central 50% of the data.
+        </p>
+        <p>The quartile deviation is given by:</p>
+        <p>
+          \[
+            \text{QD} = \frac{Q_3 - Q_1}{2}
+          \]
+        </p>
+        <p>
+          where \(Q_1\) is the lower quartile and \(Q_3\) is the upper quartile.<br>
+          The quartiles are calculated as:
+        </p>
+        <p>
+          First Quartile: \( Q_1 = \frac{n+1}{4}\text{th term} \)<br>
+          Second Quartile (Median): \( Q_2 = \frac{n+1}{2}\text{th term} \)<br>
+          Third Quartile: \( Q_3 = \frac{3(n+1)}{4}\text{th term} \)
+        </p>
+        <p>
+          Since the quartile deviation is an absolute measure of dispersion, it cannot be used to compare datasets expressed in different units.  
+          To allow comparisons across different distributions it's possible use the Coefficient of Quartile Deviation.
+        </p>
+        <p>The coefficient is defined as:</p>
+        <p>
+          \[
+            \text{CQD} = \frac{Q_3 - Q_1}{Q_3 + Q_1}
+          \]
+        </p>
+        <p>
+          This coefficient helps compare variability between datasets by considering the proportional spread between the quartiles.
+        </p>
+      </section>
+
+      <section>
+        <h3>Interquartile Range (IQR)</h3>
+        <p>
+          The Interquartile Range (IQR) is used in statistics to measure the spread of a dataset.  
+        </p>
+        <p>
+          The IQR is calculated as the difference between the third quartile (\(Q_3\)) and the first quartile (\(Q_1\)):
+        </p>
+        <p>
+          \[
+            \text{IQR} = Q_3 - Q_1
+          \]
+        </p>
+        <p>
+          This measure represents the range of the central 50% of the data, providing a sense of variability that is less affected by outliers.
+        </p>
+      </section>
+
+      <section class="sources">
+        <h3>Sources</h3>
+        <p>For more information, see:
+          <a href="https://www.healthknowledge.org.uk/public-health-textbook/research-methods/1b-statistical-methods/mldap" target="_blank">Measures of Location and Dispersion and their appropriate uses</a>,
+          <a href="https://www.investopedia.com/terms/g/geometricmean.asp" target="_blank">Understanding Geometric Mean: Calculation Method and Examples</a>,
+          <a href="https://www.investopedia.com/terms/h/harmonicaverage.asp" target="_blank">What Is the Harmonic Mean?</a>,
+          <a href="https://www.investopedia.com/terms/w/weightedaverage.asp" target="_blank">Weighted Average: Definition and How It Is Calculated and Used</a>,
+          <a href="https://www.geeksforgeeks.org/maths/measures-of-dispersion/" target="_blank">Measures of Dispersion</a>
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</body>
+</html>
