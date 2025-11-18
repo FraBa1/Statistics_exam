@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 7 — A Random-Walk Simulation of Server Security</title>
+  <meta name="description" content="Homework 7: A Random-Walk Simulation of Server Security.">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/hmwk-7.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 7</div>
+      <div class="hw-title">A Random-Walk Simulation of Server Security</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>Simulation scope</h2>
+          <p>
+            The scope of this simulation is as follows: given a server that receives weekly security updates for <em>n</em> weeks and 
+            <em>m</em> attackers who can breach the system with probability <em>p</em>, we generate random trajectories of the server’s 
+            cumulative security score. A value of +1 is assigned for each week in which the server remains secure, and −1 for each week 
+            in which a breach occurs. Afterward, the results are compared with a random walk, examining how many trajectories reach each 
+            possible total score and how these frequencies converge toward the binomial distribution as <em>n</em> and <em>m</em> increase.
+          </p>
+      </section>
+
+      <section id="security-simulation">
+        <h2>Server security simulation</h2>
+        <div class="sim-grid">
+          
+          <div class="sim-inputs">
+            <h3>Simulation Parameters</h3>
+
+            <label>Number of simulations (trajectories):</label>
+            <input type="text" id="numSim" min="1" value="200">
+
+            <label>Number of attackers (m):</label>
+            <input type="text" id="attackers" min="1" value="2">
+
+            <label>Probability of attack success (p):</label>
+            <input type="text" id="prob" min="0" max="1" step="0.01" value="0.1">
+
+            <label>Number of weeks (n):</label>
+            <input type="text" id="weeks" min="1" value="200">
+
+            <button onclick="runSimulation()">Run Simulation</button>
+          </div>
+
+          <div class="sim-output">
+            <h3>Simulation Chart</h3>
+            <canvas id="securityChart"></canvas>
+          </div>
+
+        </div>
+      </section>
+
+      <section>
+        <h2>Mathematics behind the simulation</h2>
+        <p>
+          The probability that at least one attacker breaches the server in a given week is calculated as 
+          \(1 - (1 - p)^m\), where \(p\) is the probability of a single attacker succeeding and \(m\) is the number of attackers. 
+          Therefore, the probability that the server remains secure in a week is \((1 - p)^m\). Over \(n\) weeks, the server's 
+          cumulative security score follows a binomial distribution, where each week contributes +1 for security and -1 for a breach. 
+        </p>
+      </section>
+
+      <section>
+        <h2>Graphical comparison with a binomial distribution</h2>
+        <div class="binomial-wrapper">
+          <canvas id="binomialChart"></canvas>
+        </div>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+
+
+    <script src="../JS/hmwk-7.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  </div>
+</body>
+</html>

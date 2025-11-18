@@ -1,0 +1,59 @@
+#security-simulation {
+  margin-top: 1.5rem;
+}
+
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.6rem;
+  align-items: start;
+}
+
+.sim-inputs, .sim-output {
+  background: rgba(0, 234, 255, 0.05);
+  padding: 1.3rem 1.4rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 234, 255, 0.2);
+}
+
+.sim-inputs h3, .sim-output h3 {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
+.sim-inputs label {
+  display: block;
+  margin-top: 0.6rem;
+  margin-bottom: 0.2rem;
+}
+
+.sim-inputs input {
+  width: 100%;
+  padding: 0.45rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  color: var(--text);
+}
+
+.sim-inputs button {
+  margin-top: 1rem;
+  width: 100%;
+  background: #16f2b3;
+  color: #000;
+  font-weight: 600;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.sim-inputs button:hover {
+  opacity: 0.85;
+}
+
+.binomial-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+}
