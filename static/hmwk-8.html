@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 8 — LLN, Random Walks and Mathematical Properties</title>
+  <meta name="description" content="Homework 8: LLN, Random Walks and Mathematical Properties.">
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 8</div>
+      <div class="hw-title">LLN, Random Walks and Mathematical Properties</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>HMWK-4 vs HMWK-7</h2>
+        <p>
+            This homework and the previous one are both based on the seme principle: the Bernoulli process.
+            In both we have a sequence of indipendent identically distribuited (i.i.d) random trials, each with two possible outcomes, success and failure.
+            Precisely, in homework 4 we consider the outcome of a coin flip, considering heads as success and tails as failure.
+            In this homework we consider a random walk simulation, where we get a success with probability (1-p)^m and failure with probability 1 - (1-p)^m.
+        </p>
+        <p>
+            The main diference from both is that the LLN studies the mean of the outcomes of the trials:
+            \[LLN = \frac{\sum_{i=1}^n X_i}{n} \]
+            Where \(X_i\) is 1 for success and 0 for failure. The result converge to a specific value<br>
+            While in the random walk we study the position reached after a certain number of steps:
+            \[S_n = \sum_{i=1}^n X_i \]
+            Where \(X_i\) is +1 for success and -1 for failure. The result instead diverges as n increases.
+        </p>
+      </section>
+
+      <section>
+        <h2>Mathematical Properties</h2>
+        <h3>Binomial coefficients</h3>
+        <p>
+            The binomial coefficient \(\binom{n}{k}\) represents the number of ways to choose k successes in n independent Bernoulli trials.
+            It is calculated as:
+            \[
+                \binom{n}{k} = \frac{n!}{k!(n-k)!}
+            \]
+            This coefficient is crucial in determining the probabilities of different outcomes in a series of Bernoulli trials.
+            In both homeworks, the binomial coefficients are used to calculate the probabilities of obtaining a certain number of successes in n trials.
+            <ul>
+                <li>
+                    <strong>LLN:</strong> the probability of exactly k successes in n trials is:
+                    \[P(K=k) = \binom{n}{k}p^k(1-p)^{n-k} \]
+                </li>
+                <li>
+                    <strong>Random-Walk:</strong> the probability of exactly k successes in n trials is:
+                    \[P(K=k) = \binom{n}{k}p_{sec}^k(1-p_{sec})^{n-k} \]
+                    where \(p_{sec} = (1-p)^m\)
+                </li>
+            </ul>
+        </p>
+
+        <h3>Pascals triangle</h3>
+        <p>
+            Pascal's triangle is a triangular array of numbers where each number is the sum of the two directly above it.
+            The nth row of Pascal's triangle corresponds to the coefficients of the binomial expansion of \((a + b)^n\).
+            Each entry in the triangle is given by the binomial coefficient \(\binom{n}{k}\), where n is the row number and k is the position in that row.
+        </p>
+
+        <h3>Binomial expansion</h3>
+        <p>
+            The binomial expansion describes the algebraic expansion of powers of a binomial expression.
+            It is given by the formula:
+            \[
+                (a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^k
+            \]
+            This expansion is directly related to the binomial coefficients, as they appear as the coefficients in the expanded form.
+        </p>
+
+        <h3>Fibonacci sequence</h3>
+        <p>
+            The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones:
+            \[
+                F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2} \text{ for } n \ge 2
+            \]
+            It can be be found in Pascal's Triangle by summing the numbers along shallow, rising diagonals
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  </div>
+</body>
+</html>
