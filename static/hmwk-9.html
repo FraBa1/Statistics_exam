@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 9 — Foundations of Probability: Interpretations, Axioms and Measure Theory</title>
+  <meta name="description" content="Homework  9: Foundations of Probability: Interpretations, Axioms and Measure Theory.">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/hmwk-9.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n°  9</div>
+      <div class="hw-title">Foundations of Probability: Interpretations, Axioms and Measure Theory</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>Interpretation</h2>
+
+        <h3>Classical Interpretation (Laplace)</h3>
+        <p>
+            The probability of an event is defined as the ratio between the number of favorable cases and the total number of possible cases, assuming that all cases are equally probable.
+            So the formula to calculate the probability of an event is:
+            \[P(X) = \frac{\text{#favorable cases}}{\text{total cases}} \]
+            The problems of this theory is that it works only for finite sample spaces with natural symmetries
+        </p>
+
+        <h3>Frequentist Interpretation</h3>
+        <p>
+            The probability of an event is defined as the limit of its relative frequency in a large number of trials.
+            So the formula to calculate the probability of an event is:
+            \[P(X) = \lim_{n \to \infty} \frac{\text{#occurrences of X in n trials}}{n} \]
+            The problems of this theory is that it cannot assign probabilities to unique events and it requires an infinite number of trials thats impossible in practice.
+        </p>
+
+        <h3>Bayesian Interpretation</h3>
+        <p>
+            The probability of an event is defined as a degree of belief or confidence in the occurrence of that event, based on prior knowledge and evidence.
+            So the formula to calculate the probability of an event is:
+            \[P(X|E) = \frac{P(E|X) \cdot P(X)}{P(E)} \]
+            The problems of this theory is that it can be subjective and different individuals may assign different probabilities to the same event based on their prior beliefs.
+        </p>
+
+        <h3>Geometric Interpretation</h3>
+        <p>
+            The probability of an event is defined as the ratio of the measure (length, area, volume) of the favorable region to the measure of the entire sample space.
+            So the formula to calculate the probability of an event is:
+            \[P(X) = \frac{\text{Measure of favorable region}}{\text{Measure of sample space}} \]
+            The problems of this theory is that it works only for continuous sample spaces and requires a well-defined measure.
+      </section>
+
+      <section>
+        <h2>Resolution via Kolmogorov's Axiomatic Approach</h2>
+        <p>
+          Kolmogorov's axioms offer a neutral mathematical foundation that removes inconsistencies among different interpretations of probability. 
+          They establish a shared set of rules for computing P(A), independent of philosophical viewpoints.
+        </p>
+
+        <h3>Kolmogorov's axiomes:</h3>
+          <blockquote class="lln-quote">
+            <strong>Definition:</strong> Let there be a sample space \( \Omega \), an event space \( \mathcal{E} \) and a probability measure \( P \), such that \( p(E) \) is the probability of some event \( E \in \mathcal{E} \).
+            Then, we introduce three axioms of probability:
+            <br><br>
+
+            <strong>First axiom:</strong> The probability of an event is a non-negative real number:
+            <br>
+            \[
+              p(E) \in \mathbb{R}, \quad p(E) \ge 0, \quad \text{for all } E \in \mathcal{E}.
+            \]
+            <br>
+
+            <strong>Second axiom:</strong> The probability that at least one elementary event in the sample space will occur is one:
+            <br>
+            \[
+              p(\Omega) = 1.
+            \]
+            <br>
+
+            <strong>Third axiom:</strong> The probability of any countable sequence of disjoint (i.e. mutually exclusive) events \(E_1, E_2, E_3, \dots\)
+            is equal to the sum of the probabilities of the individual events:
+            <br>
+            \[
+              p\!\left(\bigcup_{i=1}^{\infty} E_i\right) = \sum_{i=1}^{\infty} p(E_i).
+            \]
+
+            <section class="sources">
+              <h3>Sources</h3>
+              <p>
+                <a href="https://statproofbook.github.io/D/prob-ax.html" target="_blank">Definition: Kolmogorov axioms of probability</a>,
+              </p>
+            </section>
+          </blockquote>
+      </section>
+
+      <section>
+        <h2>Probability as Measure Theory</h2>
+        <p>
+          Probability theory is a special case of measure theory where the total measure of the space is 1.<br>
+          A probability space is defined as the triple \((\Omega, \mathcal{F}, P)\). 
+        </p>
+        <h3>Sigma-algebras</h3>
+        <p>
+          A sigma-algebra \( \mathcal{F} \) on a sample space \( \Omega \) is a collection of subsets of \( \Omega \) that satisfies the following properties:
+          <ul>
+            <li>It contains the empty set: \( \emptyset \in \mathcal{F} \).</li>
+            <li>It is closed under complementation: If \( A \in \mathcal{F} \), then \( A^c = \Omega \setminus A \in \mathcal{F} \).</li>
+            <li>It is closed under countable unions: If \( A_1, A_2, A_3, \dots \in \mathcal{F} \), then \( \bigcup_{i=1}^{\infty} A_i \in \mathcal{F} \).</li>
+          </ul>
+          The elements of a sigma-algebra are called measurable sets or events.
+        </p>
+
+        <h3>Probability measures</h3>
+        <p>
+          A probability measure \( P \) is a function that assigns a probability to each event in the sigma-algebra \( \mathcal{F} \) such that:
+          <ul>
+            <li>Non-negativity: For every event \( A \in \mathcal{F} \), \( P(A) \geq 0 \).</li>
+            <li>Normalization: The probability of the entire sample space is 1, i.e., \( P(\Omega) = 1 \).</li>
+            <li>Countable additivity: For any countable sequence of disjoint events \( A_1, A_2, A_3, \dots \in \mathcal{F} \), \( P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i) \).</li>
+          </ul>
+        </p>
+
+        <h3>Measurable functions</h3>
+        <p>
+          A measurable function is a function \( f: \Omega \to \mathbb{R} \) such that for every Borel set \( B \subseteq \mathbb{R} \), 
+          the preimage \( f^{-1}(B) = \{ \omega \in \Omega : f(\omega) \in B \} \) is in the sigma-algebra \( \mathcal{F} \).
+        </p>
+        <h3>Random variables</h3>
+        <p>
+          In probability theory, a measurable function \(X: \Omega \to \mathbb{R}\) defined on a probability space 
+          \((\Omega, \mathcal{F}, P)\) is called a random variable.
+        </p>
+      </section>
+
+      <section>
+        <h2>Subadditivity and Inclusion-Exclusion</h2>
+        <h3>Subadditivity</h3>
+        <p>
+            For every sequence {\(A_1, A_2, A_3, …\)} of events the probability of their union is less than or equal to the sum of their individual probabilities:
+            \[P\left(\bigcup_{i=1}^{\infty} A_i\right) \leq \sum_{i=1}^{\infty} P(A_i) \]
+            This property is known as Boole's inequality
+        </p>
+        <h3>Proof:</h3>
+        <p>
+          To establish subadditivity, we rewrite the union \(\bigcup_{i=1}^{\infty} A_i\) as a union of disjoint sets.  
+          Define \(B_1 = A_1\) and, for every \(i &gt; 1\), let  
+          \[
+            B_i = A_i \setminus \bigcup_{j=1}^{\,i-1} A_j .
+          \]  
+          By construction, the sets \(\{B_i\}_{i=1}^{\infty}\) are pairwise disjoint and satisfy  
+          \[
+            \bigcup_{i=1}^{\infty} B_i = \bigcup_{i=1}^{\infty} A_i .
+          \]  
+          Moreover, since \(B_i \subseteq A_i\) for all \(i\), monotonicity implies  
+          \[
+            P(B_i) \le P(A_i).
+          \]  
+          Applying the third axiom (countable additivity on disjoint events), we obtain  
+          \[
+            P\!\left( \bigcup_{i=1}^{\infty} A_i \right) 
+            = P\!\left( \bigcup_{i=1}^{\infty} B_i \right) 
+            = \sum_{i=1}^{\infty} P(B_i).
+          \]  
+          Combining these results yields the subadditivity property:  
+          \[
+            P\!\left( \bigcup_{i=1}^{\infty} A_i \right) 
+            \le \sum_{i=1}^{\infty} P(A_i).
+          \]
+        </p>
+
+        <h3>Inclusion-Exclusion principle</h3>
+        <p>
+          The inclusion-exclusion principle provides a way to calculate the probability of the union of several events, taking into account their intersections. 
+          For two events A and B, the principle is:
+          \[
+            P(A \cup B) = P(A) + P(B) - P(A \cap B).
+          \]
+        </p>
+        <h3>Proof:</h3>
+        <p>
+          We can divide the union \(A \cup B\) into three disjoint probabilities:
+          \[A \cup B = (A \setminus B) \cup (B \setminus A) \cup (A \cap B) \]
+          Applying the third axiom (countable additivity on disjoint events), we have:
+          \[P(A \cup B) = P(A \setminus B) + P(B \setminus A) + P(A \cap B) \]
+          Now, we can express \(P(A)\) and \(P(B)\) as:
+          \[P(A) = P(A \setminus B) + P(A \cap B) \]
+          \[P(B) = P(B \setminus A) + P(A \cap B) \]
+          Adding these two equations together gives:
+          \[P(A) + P(B) = P(A \setminus B) + P(B \setminus A) + 2P(A \cap B) \]
+          Rearranging this equation, we find:
+          \[P(A \cup B) = P(A) + P(B) - P(A \cap B) \]
+        </p>
+      </section>
+
+      <section class="sources">
+        <h3>Sources</h3>
+        <p>For more information, see:
+          <a href="https://www.mdpi.com/2409-9287/2/3/20" target="_blank">The Interpretation of Probability: Still an Open Issue?</a>,
+          <a href="https://statproofbook.github.io/D/prob-ax.html" target="_blank">Definition: Kolmogorov axioms of probability</a>,
+          <a href="https://www.statslab.cam.ac.uk/~james/Lectures/pm.pdf" target="_blank">(FILE) PROBABILITY AND MEASURE - J. R. NORRIS</a>
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</body>
+</html>
