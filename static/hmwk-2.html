@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 2 — Dataset and distribution analysis using a DBMS, frequency analysis, and Caesar cipher.</title>
+  <meta name="description" content="Homework 2: Dataset and distribution analysis using a DBMS, frequency analysis, and Caesar cipher.">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/hmwk-2.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 2</div>
+      <div class="hw-title">Dataset and distribution analysis using a DBMS, frequency analysis, and Caesar cipher.</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+      <section>
+        <h2>What is a dataset?</h2>
+        <p>
+          A dataset is a collection of related data points typically organized in tables, arrays or specific formats for analysis. 
+          Datasets can contain various types of data, such as numerical values, categorical information, text, images, or time series data. 
+          They are used in various fields, including statistics, machine learning, and data science, to extract insights, identify patterns, and make informed decisions based on the information contained within them.
+        </p>
+      </section>
+
+      <section>
+        <h2>What is a distribution?</h2>
+        <p>
+          A distribution in statistics is a function that shows the possible values for a variable and how often they occur, so it describes how data points are spread or arranged.
+          Using that it's possible to analyze the frequency of different outcomes, identify patterns, and make predictions based on the data.
+        </p>
+      </section>
+
+      <section>
+        <h2>An example using a DBMS</h2>
+        <p>
+            In thi example it's used a sample dataset containing information about the students in a school, 
+            including their names, ages, grades and courses where they are enrolled.
+            Below are some SQL queries utilized in SQLite to create and analyze the dataset
+        </p>
+
+        <h3>Creating the table:</h3>
+        <pre class="sql">
+<span class="keyword">CREATE TABLE</span> <span class="identifier">"studenti"</span> (
+    <span class="identifier">"Names"</span>   <span class="datatype">TEXT</span>,
+    <span class="identifier">"Age"</span>     <span class="datatype">INTEGER</span>,
+    <span class="identifier">"Grades"</span>  <span class="datatype">INTEGER</span>,
+    <span class="identifier">"Courses"</span> <span class="datatype">TEXT</span>
+);
+        </pre>
+
+        <h3>Inserting sample data:</h3>
+        <pre class="sql">
+<span class="keyword">INSERT INTO</span> <span class="identifier">studenti</span> (Names, Age, Grades, Courses) <span class="keyword">VALUES</span>
+(<span class="string">'Marco Rossi'</span>, <span class="number">15</span>, <span class="number">70</span>, <span class="string">'Matematica'</span>),
+(<span class="string">'Giulia Bianchi'</span>, <span class="number">16</span>, <span class="number">88</span>, <span class="string">'Matematica'</span>),
+(<span class="string">'Luca Verdi'</span>, <span class="number">17</span>, <span class="number">92</span>, <span class="string">'Fisica'</span>),
+(<span class="string">'Sara Neri'</span>, <span class="number">15</span>, <span class="number">75</span>, <span class="string">'Biologia'</span>),
+(<span class="string">'Elena Russo'</span>, <span class="number">16</span>, <span class="number">83</span>, <span class="string">'Biologia'</span>),
+(<span class="string">'Davide Conti'</span>, <span class="number">17</span>, <span class="number">68</span>, <span class="string">'Storia'</span>),
+(<span class="string">'Francesca Moretti'</span>, <span class="number">16</span>, <span class="number">91</span>, <span class="string">'Storia'</span>),
+(<span class="string">'Matteo Ferri'</span>, <span class="number">15</span>, <span class="number">80</span>, <span class="string">'Informatica'</span>),
+(<span class="string">'Anna Colombo'</span>, <span class="number">17</span>, <span class="number">95</span>, <span class="string">'Informatica'</span>),
+(<span class="string">'Giorgio Serra'</span>, <span class="number">16</span>, <span class="number">72</span>, <span class="string">'Chimica'</span>);
+        </pre>
+
+        <h3>Student Data in the database:</h3>
+        <table class="studenti">
+            <thead>
+                <tr>
+                    <th>Names</th>
+                    <th>Age</th>
+                    <th>Grades</th>
+                    <th>Courses</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Marco Rossi</td><td>15</td><td>70</td><td>Matematica</td></tr>
+                <tr><td>Giulia Bianchi</td><td>16</td><td>88</td><td>Matematica</td></tr>
+                <tr><td>Luca Verdi</td><td>17</td><td>92</td><td>Fisica</td></tr>
+                <tr><td>Sara Neri</td><td>15</td><td>75</td><td>Biologia</td></tr>
+                <tr><td>Elena Russo</td><td>16</td><td>83</td><td>Biologia</td></tr>
+                <tr><td>Davide Conti</td><td>17</td><td>68</td><td>Storia</td></tr>
+                <tr><td>Francesca Moretti</td><td>16</td><td>91</td><td>Storia</td></tr>
+                <tr><td>Matteo Ferri</td><td>15</td><td>80</td><td>Informatica</td></tr>
+                <tr><td>Anna Colombo</td><td>17</td><td>95</td><td>Informatica</td></tr>
+                <tr><td>Giorgio Serra</td><td>16</td><td>72</td><td>Chimica</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Univariate Frequency of Students by Age:</h3>
+
+        <pre class="sql">
+<span class="keyword">SELECT</span> <span class="identifier">Age</span>, <span class="keyword">COUNT</span>(<span class="number">*</span>) <span class="keyword">AS</span> <span class="identifier">Frequency</span>
+<span class="keyword">FROM</span> <span class="identifier">studenti</span>
+<span class="keyword">GROUP BY</span> <span class="identifier">Age</span>;
+        </pre>
+
+        <h4>Query Result:</h4>
+        <table class="studenti">
+            <thead>
+                <tr>
+                    <th>Age</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>15</td><td>3</td></tr>
+                <tr><td>16</td><td>4</td></tr>
+                <tr><td>17</td><td>3</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Univariate Frequency of Students by Courses:</h3>
+        <pre class="sql">
+<span class="keyword">SELECT</span> <span class="identifier">Courses</span>, <span class="keyword">COUNT</span>(<span class="number">*</span>) <span class="keyword">AS</span> <span class="identifier">Frequency</span>
+<span class="keyword">FROM</span> <span class="identifier">studenti</span>
+<span class="keyword">GROUP BY</span> <span class="identifier">Courses</span>;
+        </pre>
+
+        <h4>Query Result:</h4>
+        <table class="studenti">
+            <thead>
+                <tr>
+                    <th>Courses</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Biologia</td><td>2</td></tr>
+                <tr><td>Chimica</td><td>1</td></tr>
+                <tr><td>Fisica</td><td>1</td></tr>
+                <tr><td>Informatica</td><td>2</td></tr>
+                <tr><td>Matematica</td><td>2</td></tr>
+                <tr><td>Storia</td><td>2</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Univariate Frequency of Students by Grades:</h3>
+
+        <pre class="sql">
+<span class="keyword">SELECT</span> <span class="identifier">Grades</span>, <span class="keyword">COUNT</span>(<span class="number">*</span>) <span class="keyword">AS</span> <span class="identifier">frequency</span>
+<span class="keyword">FROM</span> <span class="identifier">studenti</span>
+<span class="keyword">GROUP BY</span> <span class="identifier">Grades</span>;
+        </pre>
+
+        <h4>Query Result:</h4>
+        <table class="studenti">
+            <thead>
+                <tr>
+                    <th>Grades</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>68</td><td>1</td></tr>
+                <tr><td>70</td><td>1</td></tr>
+                <tr><td>72</td><td>1</td></tr>
+                <tr><td>75</td><td>1</td></tr>
+                <tr><td>80</td><td>1</td></tr>
+                <tr><td>83</td><td>1</td></tr>
+                <tr><td>88</td><td>1</td></tr>
+                <tr><td>91</td><td>1</td></tr>
+                <tr><td>92</td><td>1</td></tr>
+                <tr><td>95</td><td>1</td></tr>
+            </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Letter Frequency Analyzer</h2>
+
+        <div class="letter-analyzer">
+            <textarea id="textInput" rows="5" placeholder="Enter text here..."></textarea>
+            <button onclick="analyzeLetters('textInput', 'letterChart')">Analyze</button>
+
+            <div class="chart-container">
+            <canvas id="letterChart"></canvas>
+            </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Caesar cipher</h2>
+        <p>
+            A Caesar cipher is a simple encryption technique where each letter in the plaintext is shifted a fixed number of places down or up the alphabet.
+            Defined a shift value, for example 3, each letter is replaced by the letter that is three positions later in the alphabet.
+            For example, with a shift of 3, 'A' becomes 'D', 'B' becomes 'E', and so on. 
+            The cipher wraps around at the end of the alphabet, so 'X' becomes 'A', 'Y' becomes 'B', and 'Z' becomes 'C'.
+            Non-letter characters, such as spaces and punctuation, are typically left unchanged.
+        </p>
+      </section>
+
+      <section>
+        <h2>Practical Caesar Cipher</h2>
+
+        <div class="caesar-cipher">
+            <label>
+            Shift:
+            <input type="number" id="shiftInput" value="3" min="0" max="25">
+            </label>
+
+            <label>
+            Text to Encrypt:
+            <textarea id="textToEncrypt" rows="5" placeholder="Enter text here..."></textarea>
+            </label>
+
+            <button onclick="encryptCaesar()">Encrypt</button>
+
+            <label>
+            Encrypted Text:
+            <textarea id="encryptedOutput" rows="5" readonly placeholder="Encrypted text will appear here..."></textarea>
+            </label>
+
+            <br>
+            <button onclick="analyzeLetters('textToEncrypt', 'letterChartPlain'); analyzeLetters('encryptedOutput', 'letterChartCipher')">Analyze</button>
+
+            <div class="letter-analyzer">
+                <h3>Plaintext letter analysis</h3>
+                <div class="chart-container">
+                <canvas id="letterChartPlain"></canvas>
+                </div>
+            </div>
+
+            <div class="letter-analyzer">
+                <h3>Ciphertext letter analysis</h3>
+                <div class="chart-container">
+                <canvas id="letterChartCipher"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <p>
+            It's possible to see that the frequency distribution of letters in the ciphertext is shifted compared to the plaintext by the specified shift value.
+        </p>
+      </section>
+
+      <section>
+        <h2>Break caesar cipher using the Chi-squared test</h2>
+        <p>
+            The Chi-squared test can be used to break a Caesar cipher by analyzing the frequency distribution of letters in the ciphertext and comparing it to the expected frequency distribution of letters in the target language (e.g., English).
+            By shifting the ciphertext through all possible values (1-25) and calculating the Chi-squared statistic for each shift, it's possible to identify the shift that results in the lowest Chi-squared value, indicating the best match to the expected letter frequencies.
+            This shift is likely the key used in the Caesar cipher, allowing for decryption of the ciphertext back into plaintext.
+            To calculating the Chi-squared statistic, the formula is:
+            \[
+                \chi^2 = \sum_{i=1}^{26} \frac{(O_i - E_i)^2}{E_i}
+            \]
+            where \(O_i\) is the observed frequency of letter \(i\) of the alphabet in the ciphertext, and \(E_i\) is the expected frequency of letter \(i\) in English.
+        </p>
+
+        <div class="chi-squared-cipher">
+            <button onclick="breakCaesar()">Break Caesar Cipher</button>
+            <textarea id="decipheredOutput" rows="5" readonly placeholder="Decrypted text will appear here..."></textarea>
+            <p id="detectedShift" style="font-weight:600;"></p>
+        </div>
+      </section>
+
+      <section class="sources">
+        <h3>Sources</h3>
+        <p>For more information, see:
+          <a href="https://www.ibm.com/think/topics/dataset" target="_blank">What is a dataset?</a>,
+          <a href="https://en.wikipedia.org/wiki/Chi-squared_test" target="_blank">Chi-squared test</a>
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../JS/hmwk-2.js"></script>
+</body>
+</html>
