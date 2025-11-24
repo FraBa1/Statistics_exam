@@ -1,0 +1,171 @@
+pre.sql {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+pre.sql .keyword { color: #569cd6; }
+pre.sql .identifier { color: #ce9178; }
+pre.sql .datatype { color: #4ec9b0; }
+pre.sql .string { color: #dcdcaa; }
+pre.sql .number { color: #b5cea8; }
+
+table.studenti {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+}
+
+table.studenti th, table.studenti td {
+    border: 1px solid #555;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+table.studenti th {
+    background-color: #333;
+    color: #fff;
+}
+
+table.studenti td {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+}
+
+table.studenti tr:nth-child(even) td {
+    background-color: #2a2a2a;
+}
+
+table.studenti tr:hover td {
+    background-color: #3a3a3a;
+}
+
+/* frequency */
+
+.letter-analyzer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.letter-analyzer textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--card);
+  color: var(--text);
+  padding: 0.6rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.letter-analyzer button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.letter-analyzer button:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.chart-container {
+  width: 100%;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Ceaser cipher */
+.caesar-cipher {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.caesar-cipher label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.caesar-cipher input[type="number"],
+.caesar-cipher textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.caesar-cipher textarea {
+  resize: vertical;
+}
+
+.caesar-cipher button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.caesar-cipher button:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.chi-squared-cipher {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.chi-squared-cipher textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.chi-squared-cipher button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chi-squared-cipher button:hover {
+  background: rgba(255,255,255,0.05);
+}
