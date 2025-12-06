@@ -1,0 +1,97 @@
+.simulation-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.simulation-inputs .input-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.simulation-inputs .param {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.simulation-inputs label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+
+.simulation-inputs input {
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  height: 2.8rem;
+}
+
+.simulation-inputs input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.simulation-inputs-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.simulation-inputs-buttons button {
+  flex: 1;
+  height: 2.8rem; /* uguale alle input */
+  border-radius: 12px;
+  border: none;
+  background-color: var(--highlight);
+  color: var(--bg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s ease;
+}
+
+.simulation-inputs-buttons button:hover {
+  background-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+canvas {
+  display: block;
+  width: 100% !important;
+  max-width: 700px;
+  height: 350px !important;
+  margin: 1.5rem auto;
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,234,255,0.08);
+}
+
+#wienerChart,
+#histChart {
+  aspect-ratio: 2 / 1;
+}
+
+@media (max-width: 600px) {
+  .simulation-inputs .input-row {
+    flex-direction: column;
+  }
+
+  .simulation-inputs-buttons {
+    flex-direction: column;
+  }
+
+  canvas {
+    width: 95% !important;
+    height: 250px !important;
+  }
+}
