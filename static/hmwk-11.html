@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HMWK n° 11 — Wiener process simulation</title>
+  <meta name="description" content="Homework 11: Wiener process simulation">
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/hmwk-11.css">
+</head>
+
+<body>
+  <header>
+    <div class="hw-header">
+      <div class="hw-num">HMWK n° 11</div>
+      <div class="hw-title">Wiener process simulation</div>
+    </div>
+    <p>Blog about statistics homeworks</p>
+  </header>
+
+  <div class="container">
+    <article>
+
+      <section>
+        <h2>Euler-Maruyama method</h2>
+        <p>
+          The Euler-Maruyama method is a numerical technique used to approximate solutions to stochastic differential equations (SDEs). 
+          It is an extension of the Euler method for ordinary differential equations (ODEs) and is particularly useful for simulating paths of stochastic processes, such as the Wiener process, also called Brownian motion.
+          By discretizing the time interval and iteratively updating the solution using both deterministic and stochastic components, the Euler-Maruyama method provides a way to approximate the behavior of systems influenced by random noise.
+        </p>
+
+        <p>
+          Mathematically, many stochastic processes can be represented through a 
+          <strong>stochastic differential equation (SDE)</strong> of the form:
+          \[ dX(t) = \mu(X(t), t)\,dt + \delta(X(t), t)\,dW(t) \]
+        </p>
+
+        <p>
+          Using the Euler-Maruyama method, the discrete version of the SDE becomes:
+          \[ X_{n+1} = X_n + \mu(X_n, t_n)\,\Delta t + \delta(X_n, t_n)\,\Delta W_n \]
+        </p>
+
+        <p>where:</p>
+
+        <ul>
+          <li>\( X_n \) is the current value of the process at time \( t_n \)</li>
+          <li>\( \mu(X_n, t_n) \) is the drift coefficient, representing the deterministic part of the process</li>
+          <li>\( \delta(X_n, t_n) \) is the diffusion coefficient, representing the stochastic part of the process</li>
+          <li>\( \Delta t \) is the time step size</li>
+          <li>\( \Delta W_n = \sqrt{\Delta t}\,Z_n \), where \( Z_n \sim \mathcal{N}(0,1) \), so that \( \Delta W_n \sim \mathcal{N}(0, \Delta t) \)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Wiener process</h2>
+
+        <p>
+          A Wiener process, also known as Brownian motion, is a continuous-time stochastic process,
+          \( W(t) \), that satisfies the following conditions:
+        </p>
+
+        <ul>
+          <li>\( W(0) = 0 \)</li>
+          <li>\( W(t) \) has independent increments from the other values</li>
+          <li>\( W(t) \) has stationary increments that depend only on the length of the time interval and not on the starting point</li>
+          <li>\( W(t) \) follows a normal distribution with mean 0 and variance \( t \), that is \( W(t) \sim \mathcal{N}(0, t) \)</li>
+          <li>\( W(t) \) has continuous paths with respect to time</li>
+        </ul>
+
+        <p>
+          The Wiener process can be obtained as a special case of the Euler-Maruyama scheme by choosing:
+          \[ \mu(X_n, t_n) = 0, \quad \delta(X_n, t_n) = 1 \]
+        </p>
+
+        <p>
+          which leads to the discrete update rule used in simulations:
+          \[ X_{n+1} = X_n + \Delta W_n \]
+        </p>
+      </section>
+
+      <section>
+        <h2>An interactive Wiener process simulation</h2>
+
+        <div id="controls" class="simulation-inputs">
+          <div class="input-row">
+            <div class="param"><label>Drift μ: <input type="number" id="mu" value="0" step="0.1"></label></div>
+            <div class="param"><label>Diffusion δ: <input type="number" id="sigma" value="1" step="0.1"></label></div>
+            <div class="param"><label>Time horizon T: <input type="number" id="T" value="1" step="0.1"></label></div>
+          </div>
+          <div class="input-row simulation-inputs-buttons">
+            <div class="param"><label>Number of steps: <input type="number" id="steps" value="100" step="1"></label></div>
+            <div class="param"><label>Number of experiments: <input type="number" id="N" value="100" step="1"></label></div>
+            <button onclick="simulateWiener()">Simulate</button>
+          </div>
+        </div>
+
+        <canvas id="wienerChart" width="700" height="350"></canvas>
+        <canvas id="histChart" width="700" height="350" style="margin-top:1.5rem;"></canvas>
+</section>
+
+
+      <section class="sources">
+        <h3>Sources</h3>
+        <p>
+          For more information, see:
+          <a href="https://it.mathworks.com/matlabcentral/fileexchange/69430-euler-maruyama-method" target="_blank">Euler-Maruyama Method</a>,
+          <a href="https://fiveable.me/numerical-analysis-ii/unit-11/euler-maruyama-method/study-guide/ewG258MF9J8kZ2tP" target="_blank">11.1 Euler-Maruyama Method</a>,
+          <a href="https://www.geeksforgeeks.org/maths/wiener-process/" target="_blank">Wiener Process</a>
+        </p>
+      </section>
+
+      <nav>
+        <a href="../index.html" class="card">← Back to Home</a>
+      </nav>
+
+    </article>
+
+    <footer>
+      <p>Statistics Blog — A static GitHub Pages about statistics homeworks.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script src="../JS/hmwk-11.js"></script>
+</body>
+</html>
